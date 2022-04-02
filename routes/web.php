@@ -14,16 +14,32 @@ use App\Http\Controllers\PostController;
 |
 */
 
-// /posts/create
+// /posts
 
 Route::get('/', [PostController::class, 'index'])
     ->name('posts.index');
 
-Route::get('/posts/{post}', [PostController::class, 'show'])
+Route::get('/posts-{post}', [PostController::class, 'show'])
     ->name('posts.show')
     ->where('post', '[0-9]+');
 
 Route::get('/posts/create', [PostController::class, 'create'])
     ->name('posts.create');
+
 Route::post('/posts/store', [PostController::class, 'store'])
     ->name('posts.store');
+
+// /member
+
+Route::get('/company', [PostController::class, 'company'])
+    ->name('company');
+
+Route::get('/company/member-no{member}', [PostController::class, 'member'])
+    ->name('member.member')
+    ->where('member','[0-9]+');
+
+Route::get('/company/member/create', [PostController::class, 'createMember'])
+    ->name('member.createMember');
+
+Route::post('/company/member/posts/store', [PostController::class, 'storeMember'])
+    ->name('member.storeMember');
