@@ -15,5 +15,9 @@ use App\Http\Controllers\PostController;
 
 Route::get('/', [PostController::class,'index'])
 ->name('posts.index');
+Route::get('/company',[PostController::class,'company'])
+->name('member.company');
 Route::get('/posts/{id}', [PostController::class,'show'])
 ->name('posts.show');
+Route::get('/company/member/{id}', [PostController::class,'member'])
+->name('member.member');
