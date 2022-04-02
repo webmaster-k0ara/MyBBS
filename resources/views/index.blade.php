@@ -2,14 +2,20 @@
     <x-slot name="title">
         My BBS
     </x-slot>
-    <h1>My BBS</h1>
+
+    <h1>
+        <span>My BBS</span>
+        <a href="{{ route('posts.create') }}">[Add]</a>
+    </h1>
     <ul>
         @forelse ($posts as $post)
-            <a href="{{ route('posts.show', $post->id) }}">
-                <li>{{ $post->title }}</li>
-            </a>
+            <li>
+                <a href="{{ route('posts.show', $post) }}">
+                    {{ $post->title }}
+                </a>
+            </li>
         @empty
-            <li>not posts yet!</li>
+            <li>No posts yet!</li>
         @endforelse
     </ul>
 </x-layout>
