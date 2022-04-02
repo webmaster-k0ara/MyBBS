@@ -6,5 +6,5 @@
         &laquo;<a href="{{ route('company') }}">Back</a>
     </div>
     <h1>{{ $member->name }}</h1>
-    <p>{{ $member->profile }}</p>
+    <p>{!! nl2br(e($member->profile)) !!}</p>
 </x-layout>
