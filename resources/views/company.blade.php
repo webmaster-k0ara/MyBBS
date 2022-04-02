@@ -2,11 +2,11 @@
     <x-slot name="title">
         My BBS
     </x-slot>
-    <h1>My BBS</h1>
+    <h1>社員一覧</h1>
     <ul>
-        @forelse ($posts as $post)
-            <a href="{{ route('posts.show', $post) }}">
-                <li>{{ $post->title }}</li>
+        @forelse ($member as $mem)
+            <a href="{{ route('member.member',$mem) }}">
+                <li>{{ $mem->name }}</li>
             </a>
         @empty
             <li>not posts yet!</li>
