@@ -37,6 +37,10 @@ Route::patch('/posts-{post}/update', [PostController::class, 'update'])
     ->name('posts.update')
     ->where('post', '[0-9]+');
 
+Route::delete('/posts-{post}/destroy', [PostController::class, 'destroy'])
+    ->name('posts.destroy')
+    ->where('post', '[0-9]+');
+
 // /member
 
 Route::get('/company', [PostController::class, 'company'])
@@ -58,4 +62,8 @@ Route::get('/company/member-no{member}/edit', [PostController::class, 'editMembe
 
 Route::patch('/company/member-no{member}/update', [PostController::class, 'updateMember'])
     ->name('member.updateMember')
+    ->where('member','[0-9]+');
+
+Route::delete('/company/member-no{member}/destroy', [PostController::class, 'destroyMember'])
+    ->name('member.destroyMember')
     ->where('member','[0-9]+');

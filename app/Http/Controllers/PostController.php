@@ -58,6 +58,13 @@ class PostController extends Controller
             ->route('posts.show',$post);
     }
 
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()
+        ->route('posts.index');
+    }
+
 
     // member
     public function company()
@@ -103,6 +110,13 @@ class PostController extends Controller
 
         return redirect()
             ->route('member.member',$member);
+    }
+
+    public function destroyMember(Member $member)
+    {
+        $member->delete();
+        return redirect()
+        ->route('company');
     }
 
 

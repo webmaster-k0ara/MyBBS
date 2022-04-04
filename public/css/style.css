@@ -3,6 +3,10 @@
     margin: 40px auto;
 }
 
+a{
+    text-decoration: none;
+}
+
 h1 {
     border-bottom: 1px solid;
     font-size: 18px;
@@ -59,4 +63,13 @@ button {
     color: red;
     font-size: 14px;
     margin-top: 8px;
+}
+.btn {
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    font-weight: normal;
+    color: #15c;
+    cursor: pointer;
+    vertical-align: 1px;
 }
