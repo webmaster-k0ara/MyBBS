@@ -29,6 +29,14 @@ Route::get('/posts/create', [PostController::class, 'create'])
 Route::post('/posts/store', [PostController::class, 'store'])
     ->name('posts.store');
 
+Route::get('/posts-{post}/edit', [PostController::class, 'edit'])
+    ->name('posts.edit')
+    ->where('post', '[0-9]+');
+
+Route::patch('/posts-{post}/update', [PostController::class, 'update'])
+    ->name('posts.update')
+    ->where('post', '[0-9]+');
+
 // /member
 
 Route::get('/company', [PostController::class, 'company'])
@@ -43,3 +51,11 @@ Route::get('/company/member/create', [PostController::class, 'createMember'])
 
 Route::post('/company/member/posts/store', [PostController::class, 'storeMember'])
     ->name('member.storeMember');
+
+Route::get('/company/member-no{member}/edit', [PostController::class, 'editMember'])
+    ->name('member.editMember')
+    ->where('member','[0-9]+');
+
+Route::patch('/company/member-no{member}/update', [PostController::class, 'updateMember'])
+    ->name('member.updateMember')
+    ->where('member','[0-9]+');

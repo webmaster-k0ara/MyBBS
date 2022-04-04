@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Member;
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\Memberrequest;
 
 class PostController extends Controller
 {
@@ -28,17 +30,8 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $request->validate([
-            'title' => 'required|min:3',
-            'body' => 'required',
-        ],[
-            'title.required' => 'タイトルは入れてよー',
-            'title.min' => 'タイトルすくなっ',
-            'body.required' => '内容ないじゃんかー',
-        ]);
-
         $post = new Post();
         $post->title = $request->title;
         $post->body = $request->body;
@@ -47,6 +40,24 @@ class PostController extends Controller
         return redirect()
             ->route('posts.index');
     }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')
+            ->with(['post' => $post]);
+    }
+
+    public function update(PostRequest $request, Post $post)
+    {
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()
+            ->route('posts.show',$post);
+    }
+
 
     // member
     public function company()
@@ -67,17 +78,8 @@ class PostController extends Controller
         return view('company.member.createMember');
     }
 
-    public function storeMember(Request $request)
+    public function storeMember(MemberRequest $request)
     {
-        $request->validate([
-            'name' => 'required|min:3',
-            'profile' => 'required',
-        ],[
-            'name.required' => '名前は入れてよー',
-            'name.min' => '名前すくなっ',
-            'profile.required' => '内容ないじゃんかー',
-        ]);
-
         $member = new Member();
         $member->name = $request->name;
         $member->profile = $request->profile;
@@ -86,6 +88,23 @@ class PostController extends Controller
         return redirect()
             ->route('company');
     }
+
+    public function editMember(Member $member)
+    {
+        return view('company.member.edit')
+            ->with(['member' => $member]);
+    }
+
+    public function updateMember(MemberRequest $request, Member $member)
+    {
+        $member->name = $request->name;
+        $member->profile = $request->profile;
+        $member->save();
+
+        return redirect()
+            ->route('member.member',$member);
+    }
+
 
 
 }
