@@ -14,7 +14,7 @@
         <nav>
             <ul>
                 <li><a href="{{ route('posts.index') }}">home</a></li>
-                <li><a href="{{ route('member.company') }}">会社概要</a></li>
+                <li><a href="{{ route('company') }}">会社概要</a></li>
             </ul>
         </nav>
     </header>

@@ -3,37 +3,122 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Member;
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\Memberrequest;
 
 class PostController extends Controller
 {
-    private $posts = [
-        'Title A',
-        'Title B',
-        'Title C',
-    ];
-    private $member = [
-        '山田　太郎',
-        '鈴木　健太',
-        '田中　一郎',
-    ];
+    // posts
     public function index()
     {
+        $posts = Post::latest()->get();
+
         return view('index')
-            ->with(['posts' => $this->posts]);
+            ->with(['posts' => $posts]);
     }
-    public function company()
-    {
-        return view('company')
-            ->with(['member' => $this->member]);
-    }
-    public function show($id)
+
+    public function show(Post $post)
     {
         return view('posts.show')
-            ->with(['post' => $this->posts[$id]]);
+            ->with(['post' => $post]);
     }
-    public function member($id)
+
+    public function create()
     {
-        return view('member.member')
-            ->with(['member' => $this->member[$id]]);
+        return view('posts.create');
     }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()
+            ->route('posts.index');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit')
+            ->with(['post' => $post]);
+    }
+
+    public function update(PostRequest $request, Post $post)
+    {
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect()
+            ->route('posts.show',$post);
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()
+        ->route('posts.index');
+    }
+
+
+    // member
+    public function company()
+    {
+        $members = Member::latest()->get();
+        return view('company.index')
+            ->with(['member' => $members]);
+    }
+
+    public function member(Member $member)
+    {
+        return view('company.member.index')
+            ->with(['member' => $member]);
+    }
+
+    public function createMember()
+    {
+        return view('company.member.createMember');
+    }
+
+    public function storeMember(MemberRequest $request)
+    {
+        $member = new Member();
+        $member->name = $request->name;
+        $member->profile = $request->profile;
+        $member->save();
+
+        return redirect()
+            ->route('company');
+    }
+
+    public function editMember(Member $member)
+    {
+        return view('company.member.edit')
+            ->with(['member' => $member]);
+    }
+
+    public function updateMember(MemberRequest $request, Member $member)
+    {
+        $member->name = $request->name;
+        $member->profile = $request->profile;
+        $member->save();
+
+        return redirect()
+            ->route('member.member',$member);
+    }
+
+    public function destroyMember(Member $member)
+    {
+        $member->delete();
+        return redirect()
+        ->route('company');
+    }
+
+
+
 }

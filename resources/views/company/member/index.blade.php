@@ -1,38 +1,38 @@
 <x-layout>
     <x-slot name="title">
-        {{ $post->title }} - My BBS
+        {{ $member->name }} - My BBS
     </x-slot>
     <div class="back-link">
-        &laquo;<a href="{{ route('posts.index') }}">Back</a>
+        &laquo;<a href="{{ route('company') }}">Back</a>
     </div>
     <h1>
-        <span>{{ $post->title }}</span>
-        <a href="{{ route('posts.edit',$post) }}">[Edit]</a>
-        <form method="post" action="{{route('posts.destroy',$post)}}" id="delete_post">
+        <span>{{ $member->name }}</span>
+        <a href="{{ route('member.editMember', $member) }}">[編集]</a>
+        <form method="post" action="{{ route('member.destroyMember', $member) }}" id="delete_post">
             @method('DELETE')
             @csrf
             <button class="btn">[×]</button>
         </form>
     </h1>
-    <p>{!! nl2br(e($post->body)) !!}</p>
+    <p>{!! nl2br(e($member->profile)) !!}</p>
     <h2>Comments</h2>
     <ul>
         <li>
-            <form method="post" action="{{ route('comments.store',$post) }}" class="comment-form">
+            <form method="post" action="{{ route('comments.storeMember', $member) }}" class="comment-form">
                 @csrf
                 <input type="text" name="body">
                 <button>Add</button>
             </form>
         </li>
-        @foreach ($post->comments()->latest()->get() as $comment)
-        <li>
-            {{ $comment->body }}
-            <form method="post" action="{{ route('comments.destroy',$comment) }}" class="delete-comment">
-                @csrf
-                @method('DELETE')
-                <button class="btn">[×]</button>
-            </form>
-        </li>
+        @foreach ($member->commentsmember()->latest()->get() as $comment)
+            <li>
+                {{ $comment->body }}
+                <form method="post" action="{{ route('commentsmember.destroy',$comment) }}" class="delete-comment">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn">[×]</button>
+                </form>
+            </li>
         @endforeach
     </ul>
     <script>
@@ -48,7 +48,6 @@
 
                 e.target.submit();
             });
-
             document.querySelectorAll('.delete-comment').forEach(form => {
                 form.addEventListener('submit', e => {
                     e.preventDefault();
