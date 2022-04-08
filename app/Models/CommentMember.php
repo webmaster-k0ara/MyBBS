@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class CommentMember extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'name',
-        'profile',
+        'member_id',
+        'body',
     ];
 
-    public function commentsmember()
+    public function member()
     {
-        return $this->hasMany(CommentMember::class);
+        return  $this->belongsTo(Member::class);
     }
+
 }
