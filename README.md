@@ -89,4 +89,9 @@ Laravelのsailを使いドッカーを起動
 コントローラーの作成
 ./vendor/bin/sail artisan make:controller PostController
 
+migrationの作成
+./vendor/bin/sail artisan make:migration create_posts_table
+
+DB操作モデル作成
+./vendor/bin/sail artisan make:model Post
 
